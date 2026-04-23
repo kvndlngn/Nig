@@ -9,13 +9,13 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    min-height: 100vh;
+    min-height: allow scrolling;
     background: #1a0010;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Lato', sans-serif;
-    overflow: hidden;
+    overflow: only hide sideways scroll;
     position: relative;
   }
 
@@ -113,9 +113,8 @@
     animation: fadePulse 3s ease-in-out infinite;
   }
 
-  @keyframes fadePulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.8; }
+  html {
+    scroll-behavior: smooth; /* smooth scroll */
   }
 </style>
 </head>
@@ -125,14 +124,21 @@
   <span class="heart-big">♥</span>
   <p class="to-text">For my dearest</p>
   <h1 class="name">Kish</h1>
-  <div class="divider"><span></span><span class="divider-heart">♥</span><span></span></div>
+  <p class="name">/Baby Girll😜</p>
+
+  <div class="divider">
+    <span></span><span class="divider-heart">♥</span><span></span>
+  </div>
+
   <p class="message">
     In a world full of ordinary moments,<br>
     you are my favorite extraordinary one.<br><br>
+    I want to say na your not the one who is at fault, its never been your fault, I’m the one that brings everything in what we are right now in what we have right noww so its never been your fault. I know I hurt you in the way na naisip mo na ikaw yung may kasalanan ng lahatt, your too fragile so make me the man who will care for youu kaya sana wag mong isipin na kasalanan moo kasee mahal na mahall kita Keeshaa hindi ko kahit kelan inisip na naging kasalanan mo, don’t shoulder all of thatt Keeshaaa it makes me more worry about you and that makes me feel to love you moree. You really deserve the best and I want to be the best men for youu alam ko hindi ako perpektong tao pero I will do everything to be the bestt, I will try my best to not hurtt youu peroo ngayon nakikita ko na parang palagi na lang kita nasasaktannn I want to be better men for youu so I want to have a request for youu, na can you stay with me Kahit na I’m at my worstt? Kahit na sobrang dami kong flaws? Kahit na gusto mo lang ako at no deeper feelings? Kahit na hindi natin alam kung saan tayo dadalhin ng pinag gagawa natinn? Can you stayy? Kaseee I will, and I believe na your the only women that I love the most, you where my last women to love and that makes me the happiest me that I ever seen<br><br>
     Every day with you feels like<br>
     the best kind of Valentine's Day —<br>
     warm, sweet, and full of love.
   </p>
+
   <div class="divider"><span></span><span class="divider-heart">♥</span><span></span></div>
   <p class="signature">Happy Valentine's Day &nbsp;♥</p>
   <div class="hearts-row">♥ &nbsp; ♥ &nbsp; ♥ &nbsp; ♥ &nbsp; ♥</div>
