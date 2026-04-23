@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Kish ♥</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: #1a0010;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  canvas {
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .card {
+    position: relative;
+    z-index: 10;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,180,200,0.2);
+    border-radius: 24px;
+    padding: 3rem 3.5rem;
+    max-width: 480px;
+    width: 90vw;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 80px rgba(220, 60, 100, 0.2), inset 0 0 40px rgba(255,100,140,0.03);
+  }
+
+  .heart-big {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1.5rem;
+    animation: heartbeat 1.6s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px rgba(255,80,120,0.7));
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.18); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.12); }
+    70% { transform: scale(1); }
+  }
+
+  .to-text {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,180,200,0.5);
+    margin-bottom: 0.4rem;
+  }
+
+  .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem;
+    color: #fff;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 30px rgba(255,120,160,0.4);
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1.8rem;
+  }
+  .divider span { flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(255,180,200,0.3), transparent); }
+  .divider-heart { color: rgba(255,100,140,0.7); font-size: 0.7rem; }
+
+  .message {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(255,220,230,0.85);
+    margin-bottom: 2rem;
+  }
+
+  .signature {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,180,200,0.4);
+  }
+
+  .hearts-row {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 1.6rem;
+    font-size: 0.8rem;
+    opacity: 0.5;
+    animation: fadePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes fadePulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="card">
+  <span class="heart-big">♥</span>
+  <p class="to-text">For my dearest</p>
+  <h1 class="name">Kish</h1>
+  <div class="divider"><span></span><span class="divider-heart">♥</span><span></span></div>
+  <p class="message">
+    In a world full of ordinary moments,<br>
+    you are my favorite extraordinary one.<br><br>
+    Every day with you feels like<br>
+    the best kind of Valentine's Day —<br>
+    warm, sweet, and full of love.
+  </p>
+  <div class="divider"><span></span><span class="divider-heart">♥</span><span></span></div>
+  <p class="signature">Happy Valentine's Day &nbsp;♥</p>
+  <div class="hearts-row">♥ &nbsp; ♥ &nbsp; ♥ &nbsp; ♥ &nbsp; ♥</div>
+</div>
+
+<script>
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function randBetween(a, b) { return a + Math.random() * (b - a); }
+
+  class Particle {
+    constructor() { this.reset(true); }
+    reset(init) {
+      this.x = randBetween(0, W);
+      this.y = init ? randBetween(0, H) : -20;
+      this.size = randBetween(6, 16);
+      this.opacity = randBetween(0.3, 0.8);
+      this.speed = randBetween(0.4, 1.2);
+      this.drift = randBetween(-0.4, 0.4);
+      this.wobble = randBetween(0, Math.PI * 2);
+      this.wobbleSpeed = randBetween(0.01, 0.03);
+      this.color = `hsl(${randBetween(330, 360)}, ${randBetween(70,100)}%, ${randBetween(60,80)}%)`;
+    }
+    update() {
+      this.y += this.speed;
+      this.wobble += this.wobbleSpeed;
+      this.x += Math.sin(this.wobble) * 0.6 + this.drift;
+      if (this.y > H + 20) this.reset(false);
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = this.color;
+      ctx.translate(this.x, this.y);
+      const s = this.size * 0.5;
+      ctx.beginPath();
+      ctx.moveTo(0, s * 0.6);
+      ctx.bezierCurveTo(-s * 1.2, -s * 0.3, -s * 2, s * 0.6, 0, s * 2);
+      ctx.bezierCurveTo(s * 2, s * 0.6, s * 1.2, -s * 0.3, 0, s * 0.6);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  for (let i = 0; i < 50; i++) particles.push(new Particle());
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(loop);
+  }
+  loop();
+</script>
+</body>
+</html>
